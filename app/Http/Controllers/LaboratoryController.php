@@ -129,9 +129,7 @@ class LaboratoryController extends Controller
             abort(403, 'Acesso negado. Apenas Administradores podem gerenciar membros.');
         }
 
-        // ALTERAÇÃO CHAVE: Forçar o carregamento do ID do pivot.
-        // O Laravel precisa do 'id' da tabela memberships para fazer o Route Model Binding da rota.
-        $members = $laboratory->members()->withPivot('id')->get(); // Adiciona withPivot('id')
+        $members = $laboratory->members()->withPivot('id')->get(); 
 
         return view('laboratories.members', compact('laboratory', 'members'));
     }
@@ -166,7 +164,7 @@ class LaboratoryController extends Controller
     }
 
     /**
-     * Atualiza a função (role) de um membro existente (Apenas ADM). (Passo 14)
+     * Updates the role of an existing member (Apenas ADM).
      */
     public function updateMemberRole(Request $request, Laboratory $laboratory, Membership $membership)
     {
@@ -180,7 +178,6 @@ class LaboratoryController extends Controller
 
         $request->validate(['role' => 'required|in:ADM,EDITOR,VISUALIZADOR']);
         
-        // Prevenção: O ADM não pode rebaixar a si mesmo se for o único ADM
         if ($membership->user_id == Auth::id() && $request->role != 'ADM') {
              $otherAdmins = $laboratory->members()->where('role', 'ADM')->where('user_id', '!=', Auth::id())->count();
              if ($otherAdmins == 0) {
@@ -195,7 +192,6 @@ class LaboratoryController extends Controller
         return back()->with('success', "Função de {$userName} atualizada para {$request->role} com sucesso.");
     }
 
-
     /**
      * Remove um membro (Apenas ADM).
      */
@@ -209,7 +205,6 @@ class LaboratoryController extends Controller
             abort(404);
         }
 
-        // Prevenção: O ADM não pode remover a si mesmo (se for o único ADM)
         if ($membership->user_id == Auth::id() && $membership->role == 'ADM') {
             $otherAdmins = $laboratory->members()->where('role', 'ADM')->where('user_id', '!=', Auth::id())->count();
             if ($otherAdmins == 0) {

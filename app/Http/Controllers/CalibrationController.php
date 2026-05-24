@@ -173,21 +173,14 @@ class CalibrationController extends Controller
     /**
      * Exporta o relatório de calibração como PDF.
      */
-    public function exportPdf(Laboratory $laboratory, Asset $asset, Calibration $calibration)
-    {
-        if (!Auth::user()->hasMinRoleInLaboratory($laboratory->id, 'VISUALIZADOR')) {
-            abort(403, 'Acesso negado.');
-        }
+    public function exportPdf($laboratoryId, $assetId, $calibrationId)
+{
+    // 1. Busca os modelos usando os IDs da rota aninhada
+    $laboratory = \App\Models\Laboratory::findOrFail($laboratoryId);
+    $asset = \App\Models\Asset::findOrFail($assetId);
+    $calibration = \App\Models\Calibration::findOrFail($calibrationId);
 
-        if ($asset->laboratory_id !== $laboratory->id || $calibration->asset_id !== $asset->id) {
-            abort(404);
-        }
-        
-        $calibration->load(['readings', 'corrections', 'uncertaintyA', 'uncertaintyB']);
-
-        // A view pdf_report deve ser uma versão limpa da view show.blade.php
-        $pdf = SnappyPdf::loadView('calibrations.pdf_report', compact('laboratory', 'asset', 'calibration'));
-
-        return $pdf->download("Relatorio_Calibracao_{$asset->name}_{$calibration->date->format('Ymd')}.pdf");
-    }
+    // 2. Retorna a view HTML que criamos para o CSS Print enviando as variáveis
+    return view('laboratories.relatorio-print', compact('laboratory', 'asset', 'calibration'));
+}
 }

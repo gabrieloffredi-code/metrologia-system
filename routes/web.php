@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     | Rotas de Laboratórios, Membros, Peças e Calibrações (Exigem E-mail verificado)
     |--------------------------------------------------------------------------
-    */
+    |*/
     Route::middleware(['verified'])->group(function () {
         
         // 1. Rotas de Gerenciamento de Membros (ACL)
@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('laboratories.assets.calibrations', CalibrationController::class)
              ->only(['create', 'store', 'show']); 
 
-        // Rota para EXPORTAR o Relatório GUM como PDF
+        // ✨ MANTER A ROTA ORIGINAL: Mas agora ela chamará a view de impressão HTML
         Route::get('laboratories/{laboratory}/assets/{asset}/calibrations/{calibration}/pdf', 
          [CalibrationController::class, 'exportPdf'])
             ->name('calibrations.exportPdf');
