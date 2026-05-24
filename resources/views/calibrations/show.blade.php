@@ -186,10 +186,13 @@
                     </a>
                     
                     {{-- Botão para Download/Exportação PDF (Passo 15) --}}
-                    <a href="{{ route('calibrations.exportPdf', ['laboratory' => $laboratory, 'asset' => $asset, 'calibration' => $calibration]) }}" 
+                    <<a href="{{ route('calibrations.exportPdf', [$laboratory->id, $asset->id, $calibration->id]) }}" class="btn ...">Exportar PDF</a>
                        class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
                         Exportar Relatório (PDF)
                     </a>
+                    <a href="{{ route('calibrations.exportPdf', [$laboratory->id, $asset->id, $calibration->id]) }}" target="_blank" class="px-4 py-2 bg-gray-800 text-white rounded-md font-semibold hover:bg-gray-700">
+    🖨️ Imprimir / Salvar em PDF
+</a>
                 </div>
 
             </div>
