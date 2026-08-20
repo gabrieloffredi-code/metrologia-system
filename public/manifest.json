@@ -1,0 +1,30 @@
+{
+  "background_color": "#389998",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "calculadora de incerteza",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "calculadora de incerteza",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "icons": [
+  {
+    "src": "/icons/icon-192.png",
+    "sizes": "192x192",
+    "type": "image/png",
+    "purpose": "any maskable"
+  },
+  {
+    "src": "/icons/icon-512.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any maskable"
+  }
+],
+  "id": "calculadora-incerteza",
+  "lang": "pt",
+  "categories": [
+    "education"
+  ]
+}
