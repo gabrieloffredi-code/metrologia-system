@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "app.railway.up.metrologia_system_production.twa",
-        "sha256_cert_fingerprints": ["3A:88:2A:8C:97:3C:09:3C:64:87:26:53:A0:B8:99:63:BA:70:DF:DB:5B:47:5D:A3:89:1E:DB:42:A5:C3:A5:D2"]
+        "sha256_cert_fingerprints": ["AE:31:AF:71:A6:C0:33:64:AA:B2:2D:66:0F:C1:60:B9:36:B4:04:30:27:00:42:B1:73:EE:B3:5E:B4:E6:C5:41"]
       }
     }]
