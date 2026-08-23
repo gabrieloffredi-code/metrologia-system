@@ -8,6 +8,25 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
+| Rota Pública do Digital Asset Links (TWA / Android PWA)
+|--------------------------------------------------------------------------
+| Esta rota DEVE ficar fora de qualquer middleware de autenticação
+| para que o Android consiga validar o aplicativo instalado no celular.
+*/
+Route::get('.well-known/assetlinks.json', function () {
+    $path = public_path('.well-known/assetlinks.json');
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'application/json'
+    ]);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Rotas Públicas e Dashboard (com Middlewares)
 |--------------------------------------------------------------------------
 */
@@ -38,13 +57,13 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     | Rotas de Laboratórios, Membros, Peças e Calibrações (Exigem E-mail verificado)
     |--------------------------------------------------------------------------
-    |*/
+    */
     Route::middleware(['verified'])->group(function () {
         
         // 1. Rotas de Gerenciamento de Membros (ACL)
         Route::get('laboratories/{laboratory}/members', [LaboratoryController::class, 'members'])->name('laboratories.members');
         Route::post('laboratories/{laboratory}/members', [LaboratoryController::class, 'addMember'])->name('laboratories.addMember');
-        // Rota para ATUALIZAR a função (role) de um membro (Passo 14)
+        // Rota para ATUALIZAR a função (role) de um membro
         Route::put('laboratories/{laboratory}/members/{membership}', [LaboratoryController::class, 'updateMemberRole'])->name('laboratories.updateMemberRole');
         Route::delete('laboratories/{laboratory}/members/{membership}', [LaboratoryController::class, 'removeMember'])->name('laboratories.removeMember');
         
@@ -60,7 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('laboratories.assets.calibrations', CalibrationController::class)
              ->only(['create', 'store', 'show']); 
 
-        // ✨ MANTER A ROTA ORIGINAL: Mas agora ela chamará a view de impressão HTML
+        // Rota para EXPORTAR o Relatório GUM (Impressão Nativa CSS Print)
         Route::get('laboratories/{laboratory}/assets/{asset}/calibrations/{calibration}/pdf', 
          [CalibrationController::class, 'exportPdf'])
             ->name('calibrations.exportPdf');
