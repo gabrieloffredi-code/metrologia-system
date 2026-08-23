@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.railway.up.metrologia_system_production.twa",
+        "sha256_cert_fingerprints": ["52:06:83:B2:16:69:40:D6:19:5E:53:3C:BB:E9:4A:C7:1F:3E:B3:75:59:AA:10:BA:30:0F:E1:38:8E:C2:EB:4B"]
+      }
+    }]
