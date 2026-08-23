@@ -1,12 +1,12 @@
 {
   "background_color": "#389998",
   "dir": "ltr",
-  "display": "standalone",
+  "display": "fullscreen",
   "name": "calculadora de incerteza",
   "orientation": "any",
   "scope": "/",
   "short_name": "calculadora de incerteza",
-  "start_url": "/",
+  "start_url": "/login",
   "theme_color": "#ffffff",
   "icons": [
   {
